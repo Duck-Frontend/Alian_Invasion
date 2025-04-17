@@ -10,10 +10,9 @@ class AlianInvasion:
     def __init__(self):
         pygame.init()
         self.settings = Settigns()
-        self.screen = pygame.display.set_mode((
-            self.settings.screen_width,
-            self.settings.screen_height
-        ))
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.settings.screen_height = self.screen.get_rect().height
+        self.settings.screen_width = self.screen.get_rect().width
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Alien Invasion")
         self.ship = Ship(self)

@@ -10,10 +10,10 @@ class Bullet(Sprite):
         super().__init__()
         self.screen = ai_game.screen
         self.setting = ai_game.settings
-        self.color = self.setting.bullet_collor
+        self.color = self.setting.bullet_color
 
         # Создание снаряда в позиции (0, 0) и назначение правильной позиции
-        self.rect = pygame.Rect(0, 0, self.setting.bullet_widht,
+        self.rect = pygame.Rect(0, 0, self.setting.bullet_width,
                                 self.setting.bullet_height)
         self.rect.midtop = ai_game.ship.rect.midtop
         

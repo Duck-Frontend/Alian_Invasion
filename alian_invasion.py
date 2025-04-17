@@ -32,7 +32,6 @@ class AlianInvasion:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
@@ -54,6 +53,8 @@ class AlianInvasion:
             self.ship.moving_up = True
         elif event.key == pygame.K_DOWN:  # Переместить корабль вниз
             self.ship.moving_down = True
+        elif event.key == pygame.K_q:
+            sys.exit()
 
     def _check_keyup_events(self, event):
         """Реагирует на нажатие клавиш"""

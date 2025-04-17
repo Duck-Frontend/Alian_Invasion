@@ -1,6 +1,6 @@
 import sys
 import pygame
-from setting import Settign
+from setting import Settigns
 from ship import Ship
 
 
@@ -9,7 +9,7 @@ class AlianInvasion:
 
     def __init__(self):
         pygame.init()
-        self.setting = Settign()
+        self.settings = Settigns()
         self.screen = pygame.display.set_mode(
             (self.setting.screen_width, self.setting.screen_height))
         self.clock = pygame.time.Clock()
@@ -20,6 +20,7 @@ class AlianInvasion:
         """Запускает основной цикл игры"""
         while True:
             # Отслеживание событий клавиатуры и мыши
+            self.ship.update()
             self._check_events()
             self._update_screen()
             self.clock.tick(60)
@@ -30,10 +31,24 @@ class AlianInvasion:
             # print(event)
             if event.type == pygame.QUIT:
                 sys.exit()
+                
+                
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    # Переместить корабль вправо
+                    self.ship.moving_right = True
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = True
+                    
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = False
 
     def _update_screen(self):
         """Обновляет изображение на экране и отображает новый экран"""
-        self.screen.fill(self.setting.bg_color)
+        self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
         pygame.display.flip()
 

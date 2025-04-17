@@ -9,3 +9,9 @@ class Settigns:
         self.bg_color = (230, 230, 230)
         # Настроики корабля
         self.ship_speed = 1.5
+        
+        # Параметры снаряда
+        self.bullet_speed = 2.5
+        self.bullet_width = 3
+        self.bullet_height = 15
+        self.bullet_color = (255, 0, 0)

@@ -9,6 +9,7 @@ class AlianInvasion:
         pygame.init()
         self.screen = pygame.display.set_mode((1200, 800))
         self.clock = pygame.time.Clock()
+        self.bg_color = (230, 230, 230)  # Цвет игрового поля
         pygame.display.set_caption("Alien Invasion")
 
     def run_game(self):
@@ -18,10 +19,10 @@ class AlianInvasion:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
-
-                # Отображение последнего прорисовоного экрана
-                pygame.display.flip()
-                self.clock.tick(60)
+            self.screen.fill(self.bg_color)
+            # Отображение последнего прорисовоного экрана
+            pygame.display.flip()
+            self.clock.tick(60)
 
 
 if __name__ == "__main__":

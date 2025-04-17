@@ -8,4 +8,4 @@ class Settigns:
         self.screen_height = 800
         self.bg_color = (230, 230, 230)
         # Настроики корабля
-        self.ship.speed = 1.5
+        self.ship_speed = 1.5

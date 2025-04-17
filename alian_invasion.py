@@ -26,10 +26,7 @@ class AlianInvasion:
             self.ship.update()  # Обновление координат корабля на экране
             self._check_events()  # Проверка нажатых клавишь
             self._update_screen()  # Обновление отображения объектов на экране
-            self.bullets.update()
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
+            self._update_bullets()
             self.clock.tick(60)
 
     def _check_events(self):
@@ -64,10 +61,11 @@ class AlianInvasion:
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
-            
+
     def _fire_bullet(self):
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        if len(self.bullets) < self.settings.bullet_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
 
     def _check_keyup_events(self, event):
         """Реагирует на нажатие клавиш"""
@@ -79,6 +77,13 @@ class AlianInvasion:
             self.ship.moving_up = False
         elif event.key == pygame.K_DOWN:
             self.ship.moving_down = False
+
+    def _update_bullets(self):
+        """Обновляет позиции снарядов и уничтожает старые снаряды"""
+        self.bullets.update()
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
 
 
 if __name__ == "__main__":

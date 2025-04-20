@@ -76,7 +76,7 @@ class AlianInvasion:
         """Обновляет позиции всех пришельцев во флоте"""
         self._check_fleet_edges()
         self.aliens.update()
-    
+
     def _check_keyup_events(self, event):
         """Реагирует на нажатие клавиш"""
         if event.key == pygame.K_RIGHT:
@@ -94,6 +94,9 @@ class AlianInvasion:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
+        collisions = pygame.sprite.groupcollide(
+            self.bullets, self.aliens, True, True
+        )
 
     def _create_fleet(self):
         """Создаёт флот пришельцев"""
@@ -114,19 +117,20 @@ class AlianInvasion:
         new_alian.rect.x = x_possition
         new_alian.rect.y = y_possition
         self.aliens.add(new_alian)
-        
+
     def _check_fleet_edges(self):
         """Реагирует на достижение пришельцем края экрана"""
         for alien in self.aliens.sprites():
             if alien.check_edge():
                 self._change_fleet_direction()
                 break
-        
+
     def _change_fleet_direction(self):
         """Отпускает весь флои и меняет направление"""
         for alien in self.aliens.sprites():
             alien.rect.y += self.settings.fleet_drop_speed
         self.settings.fleet_direction *= -1
+
 
 if __name__ == "__main__":
     ai = AlianInvasion()

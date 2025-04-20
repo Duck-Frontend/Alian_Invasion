@@ -26,10 +26,11 @@ class AlianInvasion:
         """Запускает основной цикл игры"""
         while True:
             # Отслеживание событий клавиатуры и мыши
-            self.ship.update()  # Обновление координат корабля на экране
             self._check_events()  # Проверка нажатых клавишь
-            self._update_screen()  # Обновление отображения объектов на экране
+            self.ship.update()  # Обновление координат корабля на экране
             self._update_bullets()
+            self._update_alian()
+            self._update_screen()  # Обновление отображения объектов на экране
             self.clock.tick(60)
 
     def _check_events(self):
@@ -71,6 +72,10 @@ class AlianInvasion:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
+    def _update_alian(self):
+        """Обновляет позиции всех пришельцев во флоте"""
+        self.aliens.update()
+    
     def _check_keyup_events(self, event):
         """Реагирует на нажатие клавиш"""
         if event.key == pygame.K_RIGHT:

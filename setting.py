@@ -16,3 +16,8 @@ class Settigns:
         self.bullet_height = 15
         self.bullet_color = (255, 0, 0)
         self.bullet_allowed = 5
+
+        # Параметри пришельцев
+        self.alien_speed = 1.0
+        self.fleet_drop_speed = 10
+        self.fleet_direction = 1

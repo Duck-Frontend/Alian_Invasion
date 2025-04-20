@@ -76,6 +76,10 @@ class AlianInvasion:
         """Обновляет позиции всех пришельцев во флоте"""
         self._check_fleet_edges()
         self.aliens.update()
+        
+        #Проверка коллизии "Пришелец - корабль"
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            print("ship hit!!!")
 
     def _check_keyup_events(self, event):
         """Реагирует на нажатие клавиш"""
@@ -94,10 +98,19 @@ class AlianInvasion:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
+        self._check_bullet_alien_collisions()
+        
+
+    def _check_bullet_alien_collisions(self):
+        """Обрабатывает коллизии снарядов с пришельцами"""
+        #Удаление снарядов и пришельцев, участвующих в коллизиях
         collisions = pygame.sprite.groupcollide(
             self.bullets, self.aliens, True, True
         )
-
+        if not self.aliens:
+            self.bullets.empty()
+            self._create_fleet()
+    
     def _create_fleet(self):
         """Создаёт флот пришельцев"""
         # Создание пришельца

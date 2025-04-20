@@ -3,6 +3,7 @@ import pygame
 from setting import Settigns
 from ship import Ship
 from bullet import Bullet
+from alien import Alien
 
 
 class AlianInvasion:
@@ -18,6 +19,8 @@ class AlianInvasion:
         pygame.display.set_caption("Alien Invasion")
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
+        self._create_fleet()
 
     def run_game(self):
         """Запускает основной цикл игры"""
@@ -45,6 +48,7 @@ class AlianInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.ship.blitme()
+        self.aliens.draw(self.screen)
         pygame.display.flip()
 
     def _check_keydown_events(self, event):
@@ -85,6 +89,21 @@ class AlianInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
+    def _create_fleet(self):
+        """Создаёт флот пришельцев"""
+        # Создание пришельца
+        alien = Alien(self)
+        alien_width = alien.rect.width
+        current_x = alien_width
+        while current_x < (self.settings.screen_width - 2 * alien_width):
+            self._creat_alian(current_x)
+            current_x += 2 * alien_width
+
+    def _creat_alian(self, x_possition):
+        new_alian = Alien(self)
+        new_alian.x = x_possition
+        new_alian.rect.x = x_possition
+        self.aliens.add(new_alian)
 
 if __name__ == "__main__":
     ai = AlianInvasion()
